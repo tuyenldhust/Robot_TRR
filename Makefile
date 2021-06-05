@@ -1,14 +1,14 @@
 CC=gcc
-INC_DIR=./libfdr
-LIB_DIR=./libfdr
-LIB_NAME=fdr
-LIB_FILE=${LIB_DIR}/lib${LIB_NAME}.a
-
 CFLAGS=-w ${DEBUG} -I${INC_DIR}
 
-.PHONY: all clean
+all: libfdr.a BT4
 
-BT4: BT4.c ${LIB_FILE}
-	${CC} ${CFLAGS} ${LDFLAGS} -o $@ BT4.c ${LIB_FILE} 
+.PHONY: libfdr.a
+
+libfdr.a:
+	$(MAKE) -C ./libfdr
+BT4:
+	${CC} -w -o $@ BT4.c libfdr/libfdr.a 
 clean:
-	rm -f B4
+	rm -f BT4
+	$(MAKE) clean -C ./libfdr
